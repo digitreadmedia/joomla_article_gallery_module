@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/**
+ * @copyright	Copyright © 2019 - All rights reserved.
+ * @license		MIT
+ * @author		Digitread Media
+ */
+-->
+<extension version="3.9" type="module" method="upgrade" client="site">
+	<name>MOD_DIGITREAD_ARTICLE_GALLERY</name>
+	<creationDate>Aug 2019</creationDate>
+	<author>Amanda Benade</author>
+	<authorEmail>info@digitread.co.za</authorEmail>
+	<authorUrl>https://www.digitread.co.za</authorUrl>
+	<copyright>Copyright © 2019 - All rights reserved.</copyright>
+	<license>MIT</license>
+	<version>3.9.10.5</version>
+	<description>MOD_DIGITREAD_ARTICLE_GALLERY_DESCRIPTION</description>
+	<updateservers>
+		<server type="extension" priority="1" name="Article Gallery Updates">
+			https://www.digitread.co.za/digitreadreleases/update_articlegallery_mod.xml
+		</server>
+	</updateservers>	
+	<files>
+		<filename module="mod_digitread_article_gallery">mod_digitread_article_gallery.php</filename>
+		<filename>mod_digitread_article_gallery.xml</filename>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<folder>assets</folder>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset
+				name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+
+				<field
+					name="moduleclass_sfx"
+					type="textarea" rows="3"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+
+				<field
+					name="cache"
+					type="list"
+					default="1"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC">
+					<option
+						value="1">JGLOBAL_USE_GLOBAL</option>
+					<option
+						value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+
+				<field
+					name="cache_time"
+					type="text"
+					default="900"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+				<field
+					name="cachemode"
+					type="hidden"
+					default="static">
+					<option
+						value="static"></option>
+				</field>
+			</fieldset>
+			<fieldset name="article_options" label="MOD_ARTICLE_OPTIONS" description="MOD_ARTICLE_OPTIONS_FIELDSET_DESCRIPTION">
+				<field type="number" label="MOD_ARTICLE_ID" name="article_id" description="MOD_ARTICLE_ID_DESCRIPTION" default="" class="" />
+				<field type="list" label="Load CSS" name="loadcss" description="Load Uikit CSS" default="yes" class="">
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</field>
+				<field type="list" label="Load JS" name="loadjs" description="Load Uikit JS" default="yes" class="">
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</field>				
+				<field type="list" label="MOD_SHOW_FULL_ARTICLE" name="show_full_article" description="MOD_SHOW_FULL_ARTICLE_DESCRIPTION" default="yes" class="">
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</field>				    
+				<field type="checkbox" showon="show_full_article:no" label="MOD_SHOW_CONTENT" name="show_content" description="MOD_SHOW_CONTENT_DESCRIPTION" value="1" default="0" class="" />
+				<field type="list" label="MOD_CONTENT_TYPE" showon="show_full_article:no" name="content_type" description="MOD_ARTICLE_CONTENT_TYPE" default="all" class="" >
+					<option value="all">All</option>
+					<option value="intro">Intro</option>
+					<option value="full">Full Text</option>
+				</field>
+				<field type="number" label="MOD_MAX_LENGTH" showon="show_full_article:no" name="max_length" description="MOD_INTRO_TEXT_MAX_LENGTH_" default="" class="" />
+				<field type="checkbox" label="MOD_SHOW_READ_MORE" showon="show_full_article:no" name="show_read_more" description="MOD_SHOW_READ_MORE_BUTTON_" value="1" default="0" class="" />
+				<field type="text" label="MOD_READ_MORE_TEXT" showon="show_full_article:no" name="read_more_text" description="MOD_READ_MORE_TEXT_DESCRIPTION" default="Read More" class="" size="32" maxlength="32" filter="safehtml" />
+				<field type="text" label="MOD_READ_MORE_CLASS" showon="show_full_article:no" name="read_more_class" description="MOD_READ_MORE_CLASS_DESCRIPTION" default="" class="" size="32" maxlength="32" filter="safehtml" />
+				<field type="checkbox" label="MOD_SHOW_INTRO_IMAGE" showon="show_full_article:no" name="show_intro_image" description="MOD_SHOW_INTRO_IMAGE_DESCRIPTION" value="1" default="0" class="" />
+				<field type="checkbox" label="MOD_SHOW_FULL_ARTICLE_IMAGE" showon="content_type:all[OR]content_type:full" name="show_full_article_image" description="MOD_SHOW_FULL_ARTICLE_IMAGE_DESCRIPTION" value="1" default="0" class="" />
+				<field type="checkbox" label="MOD_SHOW_ARTICLE_LINKS" showon="content_type:all[OR]content_type:full" name="show_article_links" description="MOD_SHOW_FULL_ARTICLE_IMAGE_DESCRIPTION1" value="1" default="0" class="" />
+				<field type="list" label="MOD_GALLERY_TYPE" name="gallery_type" description="MOD_GALLERY_TYPE_DESCRIPTION" default="left" class="" >
+					<option value="left">Display Left (Slider)</option>
+					<option value="right">Display Right (Slider)</option>
+					<option value="bottom">Display Bottom (Thumbnails)</option>
+				</field>
+				<field type="list" label="Auto Play" name="autoplay" showon="gallery_type:left[OR]gallery_type:right" description="Auto Play Slider" default="yes" class="">
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</field>
+				<field type="number" label="Interval" showon="gallery_type:left[OR]gallery_type:right" name="interval" description="Slider interval in ms" default="3000" />				
+				<field type="list" label="Gallery Light/Dark" name="gallery_shade" description="Slideshow Gallery Light/Dark" default="light" >
+					<option value="light">Light</option>
+					<option value="dark">Dark</option>
+				</field>	
+				<field type="number" label="Images Max Height" showon="gallery_type:bottom" name="max_height" description="Images Max Height" default="110" />
+			</fieldset>
+		</fields>
+
+	</config> 
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.mod_digitread_article_gallery.sys.ini</language>
+		<language tag="en-GB">en-GB/en-GB.mod_digitread_article_gallery.ini</language>
+	</languages>	
+</extension>
